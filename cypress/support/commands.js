@@ -23,3 +23,30 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('loginAsAdmin', () => {
+  cy.get('[placeholder="Электронная почта"]').type('admin@admin.ad')
+  cy.get('[placeholder="Пароль"]').type('admin')
+  cy.contains('Далее').click()
+  cy.get('.userInfo__name').contains('admin@admin.ad')
+  cy.url().should('eq', 'https://finance.dev.fabrique.studio/')
+})
+
+Cypress.Commands.add('checkingMenuSide', () => {
+  cy.get('.logo >> .picture')
+  cy.get('.side__label').contains('Платежи')
+  cy.get('.side__label').contains('Контрагенты')
+  cy.get('.side__label').contains('Счета')
+  cy.get('.side__label').contains('Статьи расходов')
+  cy.get('.side__label').contains('Юр. лица')
+  cy.get('.side__label').contains('Пользователи')
+})
+
+Cypress.Commands.add('beforeEachPayments', () => {
+  cy.visit('/accounts/login/')
+  cy.url().should('eq', 'https://finance.dev.fabrique.studio/accounts/login/')
+  cy.loginAsAdmin()
+  cy.contains('Добавить платёж').click()
+  cy.url().should('eq', 'https://finance.dev.fabrique.studio/payments/edit/')
+  cy.checkingMenuSide()
+})
