@@ -96,7 +96,6 @@ Cypress.Commands.add('deletePayment', () => {
   cy.visit('/payments/')
 
   cy.contains('span', 'testPayment')
-    .should('be.visible')
     .first()
     .click()
 
@@ -120,7 +119,6 @@ Cypress.Commands.add('deletePayment', () => {
 Cypress.Commands.add('clearAllPayments', () => {
   while (
     cy.get('[data-field="0"] > :nth-child(1)')
-      .should('be.visible')
     ) {
       cy.deleteFirstPayment()
   }

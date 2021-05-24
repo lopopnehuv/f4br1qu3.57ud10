@@ -2,7 +2,8 @@
 context('checkingAllElements', () => {
   before(() => {
     cy.paymentsPath()
-    cy.clearAllPayments()
+    // Неоткомиччивать! Машина ляжет!
+    // cy.clearAllPayments()
   })
 
   it ('header', () => {
@@ -431,7 +432,7 @@ context('checkingAllElements', () => {
       .should('be.visible')
     })
 
-    it ('Footer', () => {
+    it ('footer', () => {
     // Footer Button - Cancel
     cy.get('.widget__footer')
       .contains('Отмена')
